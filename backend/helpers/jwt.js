@@ -11,7 +11,7 @@ function authJwt() {
   }).unless({
     path: [
       { url: /\/api\/v1\/stickers\/.*/, methods: ['POST', 'GET'] },
-      { url: /\/api\/v1\/users\/.*/, methods: ['POST'] },
+      { url: /\/api\/v1\/users\/.*/, methods: ['POST', 'PUT'] },
       { url: /\/api\/v1\/albums(.*)/, methods: ['PUT', 'POST', 'GET'] },
       `${api}/users/login`,
       `${api}/users/register`,
