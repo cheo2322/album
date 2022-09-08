@@ -4,6 +4,26 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+router.get(`/:id/friends`, async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res
+      .status(500)
+      .json({ message: 'The user with the given ID was not found.' });
+  }
+
+  let friends = [];
+
+  for (let i = 0; i < user.friends.length; i++) {
+    let friend = await User.findById(user.friends[i]);
+
+    friends.push(friend.username);
+  }
+
+  res.send({ friends: friends });
+});
+
 router.put(`/:id/friends`, async (req, res) => {
   const user = await User.findById(req.params.id);
 
